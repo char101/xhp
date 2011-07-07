@@ -1,0 +1,8 @@
+// vim: ft=javascript:
+
+ARG_ENABLE("xhp", "xhp", "no");
+
+if (PHP_XHP != "no") {
+	EXTENSION("xhp", "ext.cpp xhp/xhp_preprocess.cpp xhp/code_cope.cpp xhp/fastpath.cpp xhp/parser.yacc.cpp xhp/scanner.lex.cpp");
+	ADD_FLAG("CLFAGS_XHP", "/D _STLP_USE_STATIC_LIB=1 /D _REENTRANT=1 /TP /EHsc");
+}

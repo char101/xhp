@@ -14,12 +14,21 @@
   +----------------------------------------------------------------------+
 */
 
-#include <ext/rope>
-#include <ext/pool_allocator.h>
+// Use stlport with msvc for rope implementation
+#ifdef _STLPORT_VERSION
+#  include <rope>
+#else
+#  include <ext/rope>
+#  include <ext/pool_allocator.h>
+#endif
 
 class code_rope {
   public:
-    typedef __gnu_cxx::rope<char, __gnu_cxx::__pool_alloc<char> > _rope_t;
+#ifdef _STLPORT_VERSION
+    typedef std::rope<char > _rope_t;
+#else
+	typedef __gnu_cxx::rope<char, __gnu_cxx::__pool_alloc<char> > _rope_t;
+#endif
   protected:
     _rope_t str;
     size_t lf; /* how many line breaks this code contains */
